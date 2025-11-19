@@ -53,7 +53,7 @@ export default class UserController {
       const user = await this.userService.deleteUser(req.params.id);
       if(!user) return res.fail("User not found", statusCode.NOT_FOUND);
 
-      return res.success("Login successful", statusCode.OK);
+      return res.success("User deleted successfully", user, statusCode.OK);
     } catch (err) {
       next(err);
     }
