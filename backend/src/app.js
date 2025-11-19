@@ -35,6 +35,10 @@ app.get('/about', (req, res) => {
      res.send('This is about page !');
 })
 
+app.get('/contact', (req, res) => {
+     res.send('This is contact page !');
+})
+
 app.use('/api/v1/user', userRoute);
 
 app.use(notFound);
