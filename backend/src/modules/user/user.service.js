@@ -4,23 +4,18 @@ import jwt from "jsonwebtoken";
 
 class UserService {
 
-  // Get all users (already done)
   async getAll() {
     return await USER_MODEL.find().select("-password");
   }
 
-  // ⭐ REGISTER USER
   async register({ username, email, password }) {
-    // Check if email already exists
     const existingUser = await USER_MODEL.findOne({ email });
     if (existingUser) {
       throw new Error("Email already exists");
     }
 
-    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create user
     const newUser = await USER_MODEL.create({
       username,
       email,
@@ -34,7 +29,6 @@ class UserService {
     };
   }
 
-  // ⭐ UPDATED LOGIN
   async login({ email, password }) {
     const user = await USER_MODEL.findOne({ email });
     if (!user) {
@@ -60,6 +54,10 @@ class UserService {
         email: user.email,
       },
     };
+  }
+
+  async deleteUser(id) {
+    return await USER_MODEL.findByIdAndDelete(id);
   }
 }
 
